@@ -1,4 +1,4 @@
-# stock_wallte
+# stock_wallet
 Repositório para o trabalho 2 da disciplina de Programação Web - INF1407 (2020.2)
 
 ## Tema
