@@ -1,0 +1,14 @@
+{% extends 'registro/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<h2>Entre com os seus dados para fazer login</h2>
+<form method="post">
+  {% csrf_token %}
+  <!-- para casa, transformar em tabela -->
+  {{ form.as_p }}
+  <input type="submit" value="Login">
+</form>
+Esqueceu a senha? Clique <a href="{% url 'sec-password_reset' %}">aqui</a>.
+{% endblock %}

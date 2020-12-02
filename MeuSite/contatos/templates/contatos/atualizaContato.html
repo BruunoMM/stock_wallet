@@ -1,0 +1,14 @@
+{% extends 'contatos/base.html' %}
+
+{% block title %}Atualiza Contato{% endblock %}
+
+{% block content %}
+  <h2>Atualização de Contatos</h2>
+  <form method="post">
+    {% csrf_token %}
+    <table>
+      {{ formulario.as_table }}
+    </table>
+    <input type="submit" value="Atualiza contato">
+  </form>
+{% endblock %}

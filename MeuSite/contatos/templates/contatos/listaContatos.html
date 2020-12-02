@@ -1,0 +1,38 @@
+{% extends 'contatos/base.html' %}
+
+{% block title %}Lista de Contatos do Meu Site{% endblock %}
+
+{% block content %}
+    <!-- os contatos estão em um dicionário chamado pessoas -->
+    <table border="1">
+      <tr>
+        <th>Nome</th>
+        <th>Idade</th>
+        <th>Salário</th>
+        <th>e-mail</th>
+        <th>Telefone</th>
+        <th>Nascimento</th>
+        <th></th>
+      </tr>
+    {% for pessoa in pessoas %}
+      <tr>
+        <td>{{ pessoa.nome }}</td>
+        <td>{{ pessoa.idade }}</td>
+        <td>{{ pessoa.salario }}</td>
+        <td>{{ pessoa.email }}</td>
+        <td>{{ pessoa.telefone }}</td>
+        <td>{{ pessoa.dtNasc | date:"d/m/Y"}}</td>
+        <td>
+            <a href="{% url 'contatos:atualiza-contato' pk=pessoa.id %}" class='btn btn-primary'>Atualiza</a>
+            <a href="{% url 'contatos:apaga-contato' pk=pessoa.id %}" class='btn btn-danger'>Apaga</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <th colspan="6">
+          Ainda não tem contatos cadastrados
+        </th>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

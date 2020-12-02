@@ -1,0 +1,15 @@
+{% extends 'contatos/base.html' %}
+
+{% block title %}Apaga Contato{% endblock %}
+
+{% block content %}
+<h2>Apaga contato?</h2>
+<p>
+  Confirma a remoção de {{ pessoa.nome}} ({{ pessoa.email }})?
+  <form method="post">
+    {% csrf_token %}
+    <a href="{% url 'contatos:lista-contato' %}" class='btn btn-primary'>Cancela</a>
+    <input type='submit' value="Confirma" class='btn btn-danger'>
+  </form>
+</p>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'registro/base.html' %}
+
+{% block title %}Completar Registro{% endblock %}
+
+{% block content %}
+  <h2>Complete o seu registro</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_table }}
+    <input type="submit" value="Salva">
+  </form>
+{% endblock %}
