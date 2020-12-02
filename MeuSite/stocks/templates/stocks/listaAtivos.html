@@ -1,0 +1,33 @@
+{% extends 'stocks/base.html' %}
+
+{% block title %}Carteira de Ativos{% endblock %}
+
+{% block content %}
+    <table border="1">
+      <tr>
+        <th>Ticker</th>
+        <th>Quantidade</th>
+        <th>Preço</th>
+        <th>Data</th>
+        <th></th>
+      </tr>
+    {% for ativo in ativos %}
+      <tr>
+        <td>{{ ativo.ticker }}</td>
+        <td>{{ ativo.amount }}</td>
+        <td>{{ ativo.price }}</td>
+        <td>{{ ativo.date | date:"d/m/Y"}}</td>
+        <td>
+            <a href="{% url 'stocks:atualiza-ativo' pk=ativo.id %}" class='btn btn-primary'>Editar</a>
+            <a href="{% url 'stocks:remove-ativo' pk=ativo.id %}" class='btn btn-danger'>Remover</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <th colspan="6">
+          Você ainda não cadastrou nenhum ativo à sua carteira.
+        </th>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

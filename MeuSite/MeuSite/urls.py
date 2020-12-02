@@ -30,9 +30,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # incluir minhas novas URLs
     # se o endereço (URL) for do tipo www.meusite.com.br/constatos/<alguma coisa aqui>
-    # exemplo: www.meusite.com.br/constatos/lista ==> lista está sendo tratado em contatos.urls
-    path('contatos/', include('contatos.urls')),
-    path('chat/', include('chat.urls')),
+    # exemplo: www.meusite.com.br/contatos/lista ==> lista está sendo tratado em contatos.urls
+    path('stocks/', include('stocks.urls')),
     # Caminhos para controle de acesso
     # As classas de controle de acesso usam a URL accounts
     path('', views.homeSec, name='sec-home'),

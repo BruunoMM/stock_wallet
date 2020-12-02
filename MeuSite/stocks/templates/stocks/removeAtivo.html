@@ -1,0 +1,15 @@
+{% extends 'stocks/base.html' %}
+
+{% block title %}Remoção de Ativos{% endblock %}
+
+{% block content %}
+<h2>Remoção do ativo {{ativo.ticker}}</h2>
+<p>
+  Confirma a remoção deste ativo da sua carteira ?
+  <form method="post">
+    {% csrf_token %}
+    <a href="{% url 'stocks:lista-ativos' %}" class='btn btn-primary'>Cancela</a>
+    <input type='submit' value="Confirma" class='btn btn-danger'>
+  </form>
+</p>
+{% endblock %}

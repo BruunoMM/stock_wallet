@@ -40,8 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # minhas aplicações
     'MeuSite',
-    'contatos',     # registrei a minha aplicação contatos
-    'chat',
+    'stocks',     # registrei a minha aplicação stocks
 ]
 
 MIDDLEWARE = [
@@ -125,8 +124,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'MeuSite/static'),
-        os.path.join(BASE_DIR, 'contatos/static'),
-        os.path.join(BASE_DIR, 'chat/static'),
+        os.path.join(BASE_DIR, 'stocks/static'),
 ]
 
 # Enviar o email para a console
