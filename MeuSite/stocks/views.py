@@ -51,33 +51,25 @@ class AtivoListView(View):
             else:
                 aggregated[ativo.ticker] += ativo.price
 
-        # dicionário de variáveis para o template
         context = {
             'ativos': ativos,
             'agregados': aggregated,
         }
-        '''
-        o template vai estar dentro do diretório contatos
-        o template vai se chamar listaContatos.html
-        '''
+
         return render(request, 'stocks/listaAtivos.html', context)
         
 class AtivoUpdateView(View):
-    # o get recebe como parâmetro a chave primária pk
-    # o pk identifica unicamente um registro no BD
-    # Cria um formulário preenchido com os dados do BD
+
     def get(self, request, pk, *args, **kwargs):
         if not request.user.is_authenticated:
             return HttpResponseNotFound("Page not found")
 
         ativo = Ativo.objects.get(pk=pk, user=request.user)
-        # cria um objeto formulário preenchido com os dados do ativo que estão no BD
+
         formulario = Ativo2Form(instance=ativo)
         context = {'formulario' : formulario,}
         return render(request, 'stocks/atualizaAtivo.html', context)
 
-    # Recebe um formulário preenchido e salva no BD, atualizando
-    # Não pode criar um novo contato
     def post(self, request, pk, *args, **kwargs):
         if not request.user.is_authenticated:
             return HttpResponseNotFound("Page not found")
