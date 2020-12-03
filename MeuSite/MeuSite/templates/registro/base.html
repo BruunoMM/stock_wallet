@@ -12,9 +12,9 @@
     <div>
       <a href="{% url 'sec-home' %}">Home</a> |
       {% if user.is_authenticated %}
-        <a href="{% url 'sec-paginaSecreta' %}">Página secreta</a> |
-        <a href="{% url 'sec-password-change' %}">Troca senha</a> |
-        <a href="{% url 'sec-updateView' pk=user.id %}">Termina registro</a> |
+        <a href="{% url 'stocks:lista-ativos'%}">Minha Carteira</a> |
+        <a href="{% url 'sec-password-change' %}">Trocar senha</a> |
+        <a href="{% url 'sec-updateView' pk=user.id %}">Finalizar registro</a> |
         <a href="{% url 'sec-logout'%}">Logout</a> |
       {% else %}
         <a href="{% url 'sec-registro' %}">Registro</a> |

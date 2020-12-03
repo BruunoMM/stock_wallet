@@ -6,28 +6,32 @@ from django.http.response import HttpResponseRedirect
 from django.urls.base import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseNotFound
+
 
 # GET -> Retorna o form para cadastrar ativo
 # POST -> Cadastra o ativo e salva no banco
 class AtivoCreateView(View):
     # Exibe um formulário
     def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseNotFound("Page not found")
+
         context = {'formulario' : Ativo2Form}
         return render(request, 'stocks/cadastraAtivo.html', context)
 
-    # Cria um contato com os dados do formulário no banco de dados
+    # Cria um ativo com os dados do request
     def post(self, request, *args, **kwargs):
-        # formulário representa os dados do formulário vindos via POST
+        if not request.user.is_authenticated:
+            return HttpResponseNotFound("Page not found")
+
         form = Ativo2Form(request.POST)
         if form.is_valid():
-            # criar uma variável que representa o contato
-            ativo = form.save()
-            # o contato ainda está somente em memória
-            # vou salvar no banco de dados
+            ativo = form.save(commit=False)
             ativo.user = request.user
+            print(ativo.user.username)
+
             ativo.save()
-            # eu NÃO vou desviar para um template e sim para outro view
-            # vai desviar para a URL lista-contato definida em contatos
             return HttpResponseRedirect(reverse_lazy('stocks:lista-ativos'))
         else:
             return HttpResponseRedirect(reverse_lazy('stocks:cadastra-ativos'))
@@ -35,10 +39,8 @@ class AtivoCreateView(View):
 # Lista os ativos no banco
 class AtivoListView(View):
     def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            print('Authenticated')
-        else:
-            print('Not Authenticated')
+        if not request.user.is_authenticated:
+            return HttpResponseNotFound("Page not found")
         # buscar todas os ativos do banco de dados
         ativos = Ativo.objects.all().filter(user=request.user)
         # dicionário de variáveis para o template
@@ -56,7 +58,10 @@ class AtivoUpdateView(View):
     # o pk identifica unicamente um registro no BD
     # Cria um formulário preenchido com os dados do BD
     def get(self, request, pk, *args, **kwargs):
-        ativo = Ativo.objects.get(pk=pk)
+        if not request.user.is_authenticated:
+            return HttpResponseNotFound("Page not found")
+
+        ativo = Ativo.objects.get(pk=pk).filter(user=request.user)
         # cria um objeto formulário preenchido com os dados do ativo que estão no BD
         formulario = Ativo2Form(instance=ativo)
         context = {'formulario' : formulario,}
@@ -65,7 +70,10 @@ class AtivoUpdateView(View):
     # Recebe um formulário preenchido e salva no BD, atualizando
     # Não pode criar um novo contato
     def post(self, request, pk, *args, **kwargs):
-        ativo = get_object_or_404(Ativo, pk=pk)
+        if not request.user.is_authenticated:
+            return HttpResponseNotFound("Page not found")
+
+        ativo = get_object_or_404(Ativo, pk=pk).filter(user=request.user)
         form = Ativo2Form(request.POST, instance=ativo)
         if form.is_valid():
             ativo = form.save()
@@ -79,12 +87,18 @@ class AtivoUpdateView(View):
 class AtivoDeleteView(View):
     # Pede confirmação da remoção
     def get(self, request, pk, *args, **kwargs):
-        ativo = Ativo.objects.get(pk=pk)
+        if not request.user.is_authenticated:
+            return HttpResponseNotFound("Page not found")
+
+        ativo = Ativo.objects.get(pk=pk).filter(user=request.user)
         context = {'ativo' : ativo,}
         return render(request, 'stocks/removeAtivo.html', context)
 
     # Remove o ativo
     def post(self, request, pk, *args, **kwargs):
-        ativo = Ativo.objects.get(pk=pk)
+        if not request.user.is_authenticated:
+            return HttpResponseNotFound("Page not found")
+
+        ativo = Ativo.objects.get(pk=pk).filter(user=request.user)
         ativo.delete()
         return HttpResponseRedirect(reverse_lazy('stocks:lista-ativos'))

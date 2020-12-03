@@ -7,11 +7,16 @@
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
-    <a href="">Carteira de {{user.isAuthenticated}}</a>
-    <a href="{% url 'stocks:home-ativos' %}">Início</a> |
-    <a href="{% url 'stocks:cadastra-ativo'%}">Cadastrar ativo</a> |
-    <a href="{% url 'stocks:lista-ativos'%}">Minha Carteira</a>
-    <h1>Carteira de Ativos</h1>
-    {% block content %}{% endblock %}
+    {% if user.is_authenticated %}
+      {% block page %}
+      <a href="{% url 'sec-home' %}">Meu Perfil</a> |
+        <a href="{% url 'stocks:cadastra-ativo'%}">Cadastrar ativo</a> |
+        <a href="{% url 'stocks:lista-ativos'%}">Minha Carteira</a>
+        <h2>Carteira de Ativos de {{user.username}} </h2>
+        {% block content %}{% endblock %}
+      {% endblock %}
+    {% else %}
+      <p>Please Log in</p>
+    {% endif %}
   </body>
 </html>

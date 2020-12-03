@@ -5,7 +5,7 @@ from stocks.models import Ativo
 class Ativo2Form(forms.ModelForm):
     date = forms.DateField(input_formats=['%d/%m/%Y'], label='Data da compra')
     class Meta:
-        # usando o modelo Pessoa
+        # usando o modelo Ativo
         model = Ativo
         # criar um formulário usando TODOS os campos
-        fields = '__all__'
+        fields = ('ticker', 'amount', 'price', 'date')

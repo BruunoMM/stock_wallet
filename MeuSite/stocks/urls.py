@@ -4,7 +4,7 @@ from stocks import views
 app_name = 'stocks'
 
 urlpatterns = [
-    path('', views.AtivoListView.as_view(),   name='home-ativos'),
+    path('', views.AtivoListView.as_view(), name='home-ativos'),
     path('cadastra/', views.AtivoCreateView.as_view(), name='cadastra-ativo'), # C
     path('lista/', views.AtivoListView.as_view(),   name='lista-ativos'), # R
     path('atualiza/<int:pk>/', views.AtivoUpdateView.as_view(), name='atualiza-ativo'), # U
