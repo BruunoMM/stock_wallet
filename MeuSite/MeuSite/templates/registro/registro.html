@@ -13,8 +13,7 @@
   <div id='idErro'>&nbsp;</div>
   <form method="post">
     {% csrf_token %}
-    <!-- para casa, transformar em tabela -->
     {{ form.as_p }}
-    <input type="submit" value="Cria usuário">
+    <input type="submit" value="Cadastrar">
   </form>
 {% endblock %}

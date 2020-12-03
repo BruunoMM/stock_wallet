@@ -29,5 +29,24 @@
         </th>
       </tr>
     {% endfor %}
+
   </table>
+
+  
+  <br>
+  <h2>Ativos Agregados</h2>
+  <br>
+  <table border="1">
+    <tr>
+      <th>Ticker</th>
+      <th>Valor Investido Total</th>
+    </tr>
+
+    {% for ticker, amount in agregados.items %}
+      <tr>
+        <td>{{ ticker }}</td>
+        <td>{{ amount }}</td>
+      </tr>
+    {% endfor %}
+    </table>
 {% endblock %}
